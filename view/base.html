@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+{% block body %}
+{% endblock %}
+<input type="hidden" id="csrf" value="{{ csrf }}" >
+
+<script src="https://cdn.ravenjs.com/3.5.1/raven.min.js"></script>
+<script src="https://staticfile.qnssl.com/jquery/2.2.1/jquery.min.js"></script>
+<script>
+    var site_config = {
+        user: '{{userInfo|safe}}'
+    }
+</script>
+{% block script %}
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+{% extends "../base.html" %}
+
+{% block body %}
+<form>
+    <input type="text" name="username" />
+    <input type="text" name="password" />
+    <button type="button" id="login">提交</button>
+</form>
+
+<form>
+    <input type="text" name="sign_username">
+    <input type="text" name="sign_password">
+    <button type="button" id="sign-in">注册</button>
+</form>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(function () {
+        Raven.config('https://dae45845d1e04f33ab64c2931c52f0ea@app.getsentry.com/94048').install();
+
+        window.onerror = function () {
+            console.log(arguments);
+        }
+
+        $('#login').click(function () {
+            /*$.post('/home/auth/login', {
+                username: $('[name=username]').val(),
+                password: $('[name=password]').val(),
+                '__CSRF__': $('#csrf').val()
+            }, function (res) {
+
+            })*/
+
+            $.ajax({
+                type: "POST",
+                url: '/home/auth/login',
+                data: {
+                    username: $('[name=username]').val(),
+                    password: $('[name=password]').val(),
+                    '__CSRF__': $('#csrf').val()
+                },
+                success: function(json){
+                }
+            })
+        });
+
+        $('#sign-in').click(function () {
+            $.ajax({
+                type: "POST",
+                url: '/users',
+                data: {
+                    username: $('[name=sign_username]').val(),
+                    password: $('[name=sign_password]').val(),
+                    '__CSRF__': $('#csrf').val()
+                },
+                headers: {METHOD: 'POST'},
+                success: function(json){
+                }
+            })
+        });
+
+    })
+</script>
+{% endblock %}
